@@ -20,98 +20,29 @@ const cwd = process.cwd()
 
 const FRAMEWORKS = [
   {
-    name: 'vanilla',
-    color: yellow,
-    variants: [
-      {
-        name: 'vanilla',
-        display: 'JavaScript',
-        color: yellow
-      },
-      {
-        name: 'vanilla-ts',
-        display: 'TypeScript',
-        color: blue
-      }
-    ]
-  },
-  {
     name: 'vue',
     color: green,
     variants: [
       {
-        name: 'vue',
+        name: 'element-ui',
         display: 'JavaScript',
         color: yellow
       },
       {
-        name: 'vue-ts',
-        display: 'TypeScript',
+        name: 'vant',
+        display: 'JavaScript',
         color: blue
       }
     ]
   },
   {
-    name: 'react',
-    color: cyan,
-    variants: [
-      {
-        name: 'react',
-        display: 'JavaScript',
-        color: yellow
-      },
-      {
-        name: 'react-ts',
-        display: 'TypeScript',
-        color: blue
-      }
-    ]
-  },
-  {
-    name: 'preact',
-    color: magenta,
-    variants: [
-      {
-        name: 'preact',
-        display: 'JavaScript',
-        color: yellow
-      },
-      {
-        name: 'preact-ts',
-        display: 'TypeScript',
-        color: blue
-      }
-    ]
-  },
-  {
-    name: 'lit-element',
-    color: lightRed,
-    variants: [
-      {
-        name: 'lit-element',
-        display: 'JavaScript',
-        color: yellow
-      },
-      {
-        name: 'lit-element-ts',
-        display: 'TypeScript',
-        color: blue
-      }
-    ]
-  },
-  {
-    name: 'svelte',
+    name: 'electron',
     color: red,
     variants: [
       {
-        name: 'svelte',
+        name: 'electron',
         display: 'JavaScript',
         color: yellow
-      },
-      {
-        name: 'svelte-ts',
-        display: 'TypeScript',
-        color: blue
       }
     ]
   }
@@ -129,11 +60,12 @@ async function init() {
   let targetDir = argv._[0]
   let template = argv.template || argv.t
 
-  const defaultProjectName = !targetDir ? 'vite-project' : targetDir
+  const defaultProjectName = !targetDir ? 'cutting-mat-project' : targetDir
 
   let result = {}
 
   try {
+    
     result = await prompts(
       [
         {
@@ -141,8 +73,9 @@ async function init() {
           name: 'projectName',
           message: 'Project name:',
           initial: defaultProjectName,
-          onState: (state) =>
-            (targetDir = state.value.trim() || defaultProjectName)
+          onState: (state) => {
+            (targetDir = state.value.trim() || defaultProjectName);
+          }
         },
         {
           type: () =>
@@ -215,8 +148,7 @@ async function init() {
   }
 
   // user choice associated with prompts
-  const { framework, overwrite, packageName, variant } = result
-
+  const { framework, overwrite, packageName, projectName, variant } = result
   const root = path.join(cwd, targetDir)
 
   if (overwrite) {
@@ -250,7 +182,7 @@ async function init() {
 
   const pkg = require(path.join(templateDir, `package.json`))
 
-  pkg.name = packageName
+  pkg.name = packageName || projectName;
 
   write('package.json', JSON.stringify(pkg, null, 2))
 
@@ -261,7 +193,7 @@ async function init() {
     console.log(`  cd ${path.relative(cwd, root)}`)
   }
   console.log(`  ${pkgManager === 'yarn' ? `yarn` : `npm install`}`)
-  console.log(`  ${pkgManager === 'yarn' ? `yarn dev` : `npm run dev`}`)
+  console.log(`  ${pkgManager === 'yarn' ? `yarn serve` : `npm run serve`}`)
   console.log()
 }
 
@@ -281,6 +213,7 @@ function isValidPackageName(projectName) {
 }
 
 function toValidPackageName(projectName) {
+  console.log('toValidPackageName', projectName)
   return projectName
     .trim()
     .toLowerCase()
