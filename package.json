@@ -1,6 +1,6 @@
 {
   "name": "@cutting-mat/create",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "[![license](https://img.shields.io/github/license/tower1229/Vue-Scaffold.svg)]()",
   "bin": {
     "create-app": "index.js",
