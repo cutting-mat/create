@@ -1,0 +1,34 @@
+{
+  "name": "@cutting-mat/create",
+  "version": "1.0.0",
+  "description": "[![license](https://img.shields.io/github/license/tower1229/Vue-Scaffold.svg)]()",
+  "bin": {
+    "create-app": "index.js",
+    "cva": "index.js"
+  },
+  "files": [
+    "index.js",
+    "template-*"
+  ],
+  "main": "index.js",
+  "scripts": {
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "kolorist": "^1.4.1",
+    "minimist": "^1.2.5",
+    "prompts": "^2.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cutting-mat/create.git"
+  },
+  "author": "refined-x.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cutting-mat/create/issues"
+  },
+  "homepage": "https://github.com/cutting-mat/create#readme"
+}
