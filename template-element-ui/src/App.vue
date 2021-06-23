@@ -10,7 +10,7 @@ import { instance } from "@/api";
 import { moduleRoute } from "./main/index";
 
 let checkRouteRedirectResult = []; // 临时变量
-let routeAuthWhiteList = moduleRoute.map((e) => e.path);  // 顶级路由均为白名单
+let routeAuthWhiteList = moduleRoute.map((e) => e.path); // 顶级路由均为白名单
 
 export default {
   methods: {
@@ -163,7 +163,8 @@ export default {
       let localUser = util.storage("auth");
 
       if (localUser && localUser.accessToken) {
-        instance.defaults.headers.common["Authorization"] = localUser.accessToken;
+        instance.defaults.headers.common["Authorization"] =
+          localUser.accessToken;
         store.set("accessToken", localUser.accessToken);
       } else {
         if (routeAuthWhiteList.indexOf(this.$router.currentRoute.path) === -1) {
@@ -280,7 +281,6 @@ export default {
        * 监听 "login" 事件
        */
       util.storage("auth", res.data);
-
       this.signin(() => {
         // 登录成功（silent来自token续签）
         if (!res.silent) {
@@ -297,11 +297,10 @@ export default {
       if (routeAuthWhiteList.indexOf(this.$router.currentRoute.path) === -1) {
         window.location.href = process.env.BASE_URL || "/";
       }
-      
     },
     initUser: function (loginRes) {
       // 初始化用户信息
-      store.action("user").then(() => {
+      store.action("user", true).then(() => {
         if (loginRes && loginRes.from) {
           // 如果携带来路路由，跳转到来路路由
           this.$router.replace({ path: loginRes.from });
