@@ -4,10 +4,10 @@
 
 <script>
 import Vue from "vue";
-import * as util from "@/main/assets/util.js";
-import { store } from "@/store";
-import { instance } from "@/api";
-import {default as FullRoute, mainRoute, moduleRoute} from "./main/index";
+import * as util from "@/core";
+import { store } from "@/core/store";
+import { instance } from "@/core/api";
+import {default as FullRoute, mainRoute, moduleRoute} from "@/main/index";
 
 let checkRouteRedirectResult = []; // 临时变量
 let routeAuthWhiteList = mainRoute.map((e) => e.path); // 主模块路由加入白名单
@@ -166,6 +166,7 @@ export default {
         // 已登录
         instance.defaults.headers.common["Authorization"] =store.get("accessToken");
       } else {
+        // 未登录逻辑通过路由守卫（@/router.js）处理
         return console.warn('未登录')
       }
 
@@ -299,9 +300,9 @@ export default {
       /*
        * 监听 "logout" 事件
        */
-
       util.storage("auth", "");
       if (routeAuthWhiteList.indexOf(this.$router.currentRoute.path) === -1) {
+        // 非白名单路由刷新，触发路由守卫的未登录逻辑
         window.location.reload()
       }
     },
@@ -319,5 +320,5 @@ export default {
 </script>
 
 <style>
-@import url(main/assets/global.css);
+@import url(./global.css);
 </style>
