@@ -72,9 +72,8 @@
 </template>
 
 <script>
-import * as util from "@/core";
+import { util } from "@/core";
 import * as resource from "../api/resource";
-import { store } from "@/core/store";
 
 export default {
   model: {
@@ -154,7 +153,7 @@ export default {
       });
     },
     fetchData: function () {
-      store.action("permission").then((userPermissions) => {
+      this.$store.action("permission").then((userPermissions) => {
         this.list = util.buildTree(
           userPermissions.menus.concat(userPermissions.resources)
         );

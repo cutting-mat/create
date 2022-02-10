@@ -1,5 +1,4 @@
-import { instance } from '@/core/api';
-import { requestWrapper } from "@/core";
+import { instance } from "@/core";
 
 //登录
 export const login = params => {
@@ -8,18 +7,13 @@ export const login = params => {
 
 //用户权限
 export const permission = (params, opt) => {
-    return requestWrapper(params => {
-        return instance.get(`/getPermissions`, { params })
-    }, params, opt)
+    return instance.get(`/getPermissions`, { params }, opt)
 }
 
 //用户信息
 export const info = (params, opt) => {
-    return requestWrapper(params => {
-        return instance.get(`/getAccountInfo`, { params })
-    }, params, opt)
+    return instance.get(`/getAccountInfo`, { params }, opt)
 }
-
 
 //修改密码
 export const editPassword = params => {

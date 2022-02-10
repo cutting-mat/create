@@ -56,11 +56,13 @@
 </template>
 
 <script>
-import * as util from "@/core";
+import { util } from "@/core";
 import * as resource from "../api/resource";
-import { store } from "@/core/store";
 
 export default {
+  components: {
+    TheResourcePicker: (resolve) => require(["@/system/components/TheResourcePicker.vue"], resolve)
+  },
   data() {
     const checkMethod = (rule, value, callback) => {
       // method字段校验
@@ -203,8 +205,9 @@ export default {
     },
     fetchData: function () {
       this.loading = true;
-      store
-        .action("permission", true)
+      this.$store.action("permission", {
+        cache: false
+      })
         .then((userPermissions) => {
           this.loading = false;
           this.list = util.buildTree(

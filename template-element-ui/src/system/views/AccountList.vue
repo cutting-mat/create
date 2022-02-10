@@ -1,5 +1,5 @@
 <template>
-  <div class="scrollbar blockLayout" v-loading.fullpage="loading">
+  <div class="scrollbar blockLayout" v-loading.fullscreen="loading">
     <div class="flex-row align-center toolBar">
       <div class="flex-1">
         <!-- title -->
@@ -67,7 +67,7 @@
       </el-table-column>
     </el-table>
     <!-- page -->
-    <BasePagination
+    <Pagination
       :page-size="queryParam.pageSize"
       :current-page="queryParam.p"
       :total-count="totalCount"
@@ -149,11 +149,14 @@
 </template>
 
 <script>
-import * as util from "@/core";
+import { util } from "@/core";
 import * as account from "../api/account";
 import { list as requestRoles } from "../api/role";
 
 export default {
+  components: {
+    OrgPicker: (resolve) => require(["@/system/components/OrgPicker.vue"], resolve)
+  },
   data() {
     const validatePass = (rule, value, callback) => {
       if (!value) {
@@ -212,7 +215,7 @@ export default {
   },
   methods: {
     orgAdapter(value, obj) {
-      console.log(value, obj);
+      // console.log(value, obj);
       if (obj && obj.id) {
         return obj.fullName;
       }

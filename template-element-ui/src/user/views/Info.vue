@@ -1,5 +1,5 @@
 <template>
-  <div class="scrollbar blockLayout flex-col" v-loading.fullpage="loading">
+  <div class="scrollbar blockLayout flex-col" v-loading.fullscreen="loading">
     <div class="flex-row align-center toolBar">
       <div class="flex-1">
         <!-- title -->
@@ -28,12 +28,11 @@
 </template>
 
 <script>
-import { store } from "@/core/store";
 
 export default {
   data() {
     return {
-      state: store.state,
+      state: this.$store.state,
       loading: false,
     };
   },

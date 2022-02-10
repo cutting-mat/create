@@ -1,5 +1,4 @@
-import { instance } from '@/core/api';
-import { requestWrapper } from "@/core";
+import { instance } from "@/core";
 
 //
 export const list = params => {
@@ -19,9 +18,7 @@ export const remove = params => {
 }
 
 export const itemList = (params, opt) => {
-    return requestWrapper(params => {
-        return instance.get(`/dict/item/s`, { params })
-    }, params, opt)
+    return instance.get(`/dict/item/s`, { params }, opt)
 }
 
 export const itemAdd = params => {
