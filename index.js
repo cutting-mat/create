@@ -29,7 +29,7 @@ const FRAMEWORKS = [
         color: yellow
       },
       {
-        name: 'vant',
+        name: 'vant4',
         display: 'JavaScript',
         color: blue
       }
