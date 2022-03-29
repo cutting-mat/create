@@ -7,57 +7,52 @@
         v-for="(item, index) in list"
         :key="index"
         class="_item"
-        :class="{ cur: $route.path.indexOf(item.path) === 0 }"
-        @click="toggleNav(item)"
+        @click="$router.push(item)"
       >
         {{ (item.meta && item.meta.title) || item.name }}
       </li>
     </ul>
+
     <el-dropdown
-      v-if="state.user && state.user.accountName"
+      v-if="user && user.accountName"
       class="userAvat"
       trigger="click"
       @command="handleCommand"
     >
       <span class="el-dropdown-link">
         <el-avatar icon="el-icon-user-solid"></el-avatar>
-        <span class="accountName">{{ state.user.accountName }}</span>
+        <span class="accountName">{{ user.accountName }}</span>
         <i class="el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="userInfo">个人信息</el-dropdown-item>
         <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+        
       </el-dropdown-menu>
     </el-dropdown>
   </header>
 </template>
 
 <script>
-import { util } from "@/core";
-import {subModules} from '@/module.config';
+import { event } from "@/core";
 
 export default {
   data() {
     return {
-      state: this.$store.state,
+      list: []
     };
   },
   computed: {
-    list: function () {
-      return (this.$AccessControl ? this.state.menu : subModules).filter((e) => !e.meta || !e.meta.hide)
-    },
+    user(){
+      return this.$store.state.user
+    }
   },
   methods: {
-    toggleNav(item) {
-      if (item.path) {
-        if (item.redirect !== this.$route.path) {
-          this.$router.push(item.path);
-        }
-      } else {
-        window.open(item.url, "_blank");
-      }
-    },
     handleCommand: function (command) {
       switch (command) {
+        case "userInfo":
+          this.$router.push({name: "个人信息"})
+          break;
         case "logout":
           this.logout();
           break;
@@ -72,10 +67,10 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        util.emit("logout");
+        event.emit("logout");
       });
     },
-  },
+  }
 };
 </script>
 
@@ -109,6 +104,7 @@ export default {
 .navlist {
   height: 100%;
   text-align: right;
+  padding: 0 20px;
 }
 .navlist ._item {
   display: inline-block;
@@ -118,6 +114,7 @@ export default {
   cursor: pointer;
   width: 8em;
   text-align: center;
+  font-size: 16px;
 }
 .navlist .cur {
   color: #fff;

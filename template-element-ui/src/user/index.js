@@ -1,22 +1,26 @@
 export default [{
     path: '/user',
-    name: '个人中心',
+    name: '用户管理',
+    meta: {
+        icon: ''
+    },
     component: (resolve) => require(['./views/Index.vue'], resolve),
-    redirect: '/user/info',
+    redirect: '/user/Account',
     children: [{
-        path: 'info',
-        name: '个人信息',
-        meta: {
-            icon: '&#xe601;'
-        },
-        component: (resolve) => require(['./views/Info.vue'], resolve)
+        path: 'Account',
+        name: '账号管理',
+        component: (resolve) => require(['./views/Account.vue'], resolve)
     }, {
-        path: 'password',
-        name: '修改密码',
-        meta: {
-            icon: '&#xe601;'
-        },
-        component: (resolve) => require(['./views/Password.vue'], resolve)
-    }
-    ]
+        path: 'Organization',
+        name: '组织管理',
+        component: (resolve) => require(['./views/Organization.vue'], resolve)
+    }, {
+        path: 'Role',
+        name: '角色管理',
+        component: (resolve) => require(['./views/Role.vue'], resolve)
+    }, {
+        path: 'Resource',
+        name: '资源管理',
+        component: (resolve) => require(['./views/Resource.vue'], resolve)
+    }]
 }]

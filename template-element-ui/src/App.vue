@@ -5,23 +5,15 @@
 <script>
 
 export default {
-  methods: {},
+  name: "CuttingMatApp",
   created: function () {
-    /*
-     * Start from here!
-     */
-    this.$AccountAuth({
-      loginCallback: () => {
-        // 初始化用户信息
-        this.$store.action("user", {
-          cache: false
-        })
-      },
+    this.$Permission(() => {
+
+      // 初始化用户信息
+      this.$store.action("user", {
+        cache: 'update'
+      });
     });
   },
 };
 </script>
-
-<style scoped>
-
-</style>

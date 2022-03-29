@@ -29,7 +29,7 @@ const FRAMEWORKS = [
         color: yellow
       },
       {
-        name: 'vant4',
+        name: 'vant',
         display: 'JavaScript',
         color: blue
       }
@@ -65,7 +65,7 @@ async function init() {
   let result = {}
 
   try {
-    
+
     result = await prompts(
       [
         {
